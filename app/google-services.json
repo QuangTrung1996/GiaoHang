@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "244211177724",
+    "firebase_url": "https://pttravel-182617.firebaseio.com",
+    "project_id": "pttravel-182617",
+    "storage_bucket": "pttravel-182617.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:244211177724:android:c178f30991d01723",
+        "android_client_info": {
+          "package_name": "com.kltn.congphuc.giaohang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "244211177724-f9b45u9714d6uirrr5td1d5tc5cfakto.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kltn.congphuc.giaohang",
+            "certificate_hash": "58b4a74fb23f959f51993a7fba2fc893fbd665c2"
+          }
+        },
+        {
+          "client_id": "244211177724-0oe9bjabecsube4d4sr0351gek3ceoa9.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "244211177724-0oe9bjabecsube4d4sr0351gek3ceoa9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOmcCR5QUcffw3D4enKNlY2X6M5BcVJvI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "244211177724-0oe9bjabecsube4d4sr0351gek3ceoa9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

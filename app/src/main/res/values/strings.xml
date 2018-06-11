@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Giao Hàng</string>
+    <string name="main">đơn hàng</string>
+    <string name="username">UserName Or Password</string>
+    <string name="password">......</string>
+    <!-- map Api -->
+    <string name="map_api_key">AIzaSyCpN31BRldLGjJ0cK69VoKlpE9kzjEkzWo</string>
+
+    <!-- drawble -->
+    <string name="thieudulieu">tên đăng nhập hoặc mật khẩu không đúng</string>
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="statistical">thống kê đơn hàng</string>
+    <string name="logout">Đăng Xuất</string>
+    <string name="changinformation">thay đổi thông tin</string>
+    <string name="home">Trang Chủ</string>
+    <string name="title_activity_detail_bill">Map</string>
+    <string name="login">LogIn</string>
+    <string name="kG">0</string>
+    <string name="sokg">10</string>
+    <string name="SDT">số điện thoại</string>
+    <string name="email">email</string>
+    <string name="diachi">địa chỉ</string>
+    <string name="doimatkhau">Thay đổi mật khẩu</string>
+</resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:background="@color/gray"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:focusable="false"
+        android:divider="@color/gray"
+        android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:dividerHeight="0dip"
+        android:layout_width="match_parent"
+        android:id="@+id/Lv_Home"
+        android:layout_height="wrap_content"
+        android:choiceMode="singleChoice"
+        />
+    <ProgressBar
+        android:id="@+id/loadinvoice"
+        android:background="@color/gray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+    <TextView
+        android:textSize="30sp"
+        android:visibility="invisible"
+        android:layout_marginBottom="25dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:id="@+id/textviewanimation"
+        android:layout_gravity="bottom|left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sokg"/>
+    <TextView
+        android:id="@+id/tongKG"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:background="@drawable/circle_textview"
+        android:layout_margin="15dp"
+        android:text="@string/kG"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|right"/>
+
+</FrameLayout>
