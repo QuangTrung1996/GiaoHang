@@ -63,7 +63,7 @@ class wellcom : AppCompatActivity() {
                     Thread.sleep(4000) // set thoi gian dong Activity
                     val laytt = sharedPreferences(this@wellcom)
                     val a = laytt.docThongTin()
-                    if (a.get(0) == "KLTN-Ugao")
+                    if (a[0] == "KLTN-Ugao")
                     {
                         val intent = Intent(this@wellcom, LogIn::class.java)
                         startActivity(intent)
