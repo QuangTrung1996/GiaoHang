@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.chnagInforUser.changeImageShipper">
+    <ImageView
+        android:scaleType="fitXY"
+        android:src="@drawable/backgroundwellcome"
+        android:id="@+id/imageChange"
+        android:layout_margin="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <FrameLayout
+        android:id="@+id/lineImage"
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        >
+        <TextView
+            android:id="@+id/huyImageUser"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hủy"
+            android:layout_gravity="center_vertical"/>
+        <TextView
+            android:id="@+id/capnhatImageUser"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cập nhật"
+            android:layout_gravity="center"/>
+        <TextView
+            android:layout_marginEnd="20dp"
+            android:id="@+id/thaydoiImageUser"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="thay đổi"
+            android:layout_gravity="center_vertical|right"
+            tools:ignore="RtlHardcoded" />
+    </FrameLayout>
+</FrameLayout>

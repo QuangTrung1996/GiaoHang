@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-feature
         android:name="android.hardware.location"
@@ -13,11 +16,10 @@
         android:required="true" />
 
     <application
-        android:allowBackup="true"
-        android:icon="@drawable/shipgao"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:icon="@mipmap/ic_launcher"
         android:theme="@style/AppTheme">
         <activity android:name=".wellcom">
             <intent-filter>
@@ -33,21 +35,18 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/main"
-
-           >
-        </activity>
+            android:label="@string/main" />
         <activity
             android:name=".DetailBill"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name" />
 
         <service android:name=".myFirebaseIdService.MyFirebaseIdservice">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".myFirebaseIdService.MyFirebasemessage"
+        <service
+            android:name=".myFirebaseIdService.MyFirebasemessage"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -55,8 +54,19 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".LogIn">
-        </activity>
+        <activity android:name=".LogIn" />
+        <activity
+            android:name=".view.PopupDelay"
+            android:theme="@style/AppTheme.Customtheme" />
+        <activity
+            android:name=".view.PopupCancelVoice"
+            android:theme="@style/AppTheme.Customtheme" />
+        <activity android:name=".view.DetaiVoiceUnpaid" />
+        <activity
+            android:name=".view.chnagInforUser.changeInforItem"
+            android:theme="@style/AppTheme.Customtheme" />
+        <activity android:name=".row_store_shipper" />
+        <activity android:name=".view.chnagInforUser.changeImageShipper"></activity>
     </application>
 
 </manifest>

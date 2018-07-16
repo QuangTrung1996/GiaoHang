@@ -2,8 +2,9 @@ package com.kltn.congphuc.giaohang.dataRetrofit.invoiceShiper
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Location {
+class Location: Serializable {
 
     @SerializedName("address")
     @Expose

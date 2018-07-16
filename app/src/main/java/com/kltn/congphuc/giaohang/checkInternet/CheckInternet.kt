@@ -1,13 +1,11 @@
-package com.travel.phuc.trung.tlcn.tlcn.Conect
+package com.kltn.congphuc.giaohang.checkInternet
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.widget.Toast
-
 
 
 class CheckInternet constructor(var internet: CheckInternetInterface) {
-    var a:CheckInternetInterface=internet
+    var a: CheckInternetInterface =internet
     fun checkConnection(context: Context) {
         val connMgr = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connMgr.activeNetworkInfo

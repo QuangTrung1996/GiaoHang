@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -22,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tên Người Nhận:"
+                android:text="Người nhận:"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:textSize="15sp"
@@ -64,7 +67,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Khối Lượng: "
+                android:text="Khối lượng: "
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp" />
             <TextView
@@ -84,7 +87,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số Tiền Nhận: "
+                android:text="tiền Nhận: "
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp" />
             <TextView
@@ -104,7 +107,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Số Điện Thoại: "
+                android:text="Điện thoại: "
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="10dp" />
             <TextView
@@ -116,55 +119,78 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="10dp" />
             <ImageButton
+                android:id="@+id/callPhonenumble"
                 android:layout_marginStart="20dp"
                 android:src="@drawable/telephone"
                 android:background="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end" />
+
         </LinearLayout>
         <TextView
-            android:textColor="@color/red"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:id="@+id/xemchitietRecieve"
+            android:textColor="#01ffd9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Đã Nhận Hàng."
+            android:text="@string/xemchitiet"
             android:layout_marginTop="5dp"
-            android:layout_marginStart="10dp"/>
-        <LinearLayout
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <Button
-                android:clickable="true"
-                android:textAllCaps="false"
-                android:id="@+id/huydonhang"
-                android:text="Hủy Đơn hàng"
-                android:layout_marginRight="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/background_buttonchitiet"
+            tools:ignore="RtlHardcoded" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="32dp">
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            <Button
-                android:clickable="true"
-                android:textAllCaps="false"
-                android:id="@+id/xacnhangiaohang"
-                android:text="xác nhận giao hàng"
-                android:layout_marginLeft="1dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_donhang"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true" />
-        </LinearLayout>
-        <View
-            android:background="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="5dp">
-        </View>
+                android:layout_height="30dp"
+                android:weightSum="3"
+                android:orientation="horizontal"
+                tools:ignore="UselessParent">
+                <Button
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:textSize="10sp"
+                    android:clickable="true"
+                    android:textAllCaps="false"
+                    android:id="@+id/huydonhang"
+                    android:text="Hủy Đơn hàng"
+                    android:background="@drawable/background_buttonchitiet"
+                    android:layout_width="0dip"
+                    android:layout_height="28dp"
+                    tools:ignore="SmallSp" />
+                <Button
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:textSize="10sp"
+                    android:clickable="true"
+                    android:textAllCaps="false"
+                    android:id="@+id/trihoan"
+                    android:text="@string/delay"
+                    android:background="@drawable/background_delay"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    tools:ignore="SmallSp"
+                    android:focusable="true" />
+                <Button
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:textSize="8sp"
+                    android:clickable="true"
+                    android:textAllCaps="false"
+                    android:id="@+id/xacnhangiaohang"
+                    android:text="xác nhận giao hàng"
+                    android:background="@drawable/button_donhang"
+                    android:layout_width="0dp"
+                    android:layout_height="28dp"
+                    android:focusable="true"
+                    tools:ignore="SmallSp"
+                    android:layout_marginEnd="10dp"/>
+            </LinearLayout>
+    </LinearLayout>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

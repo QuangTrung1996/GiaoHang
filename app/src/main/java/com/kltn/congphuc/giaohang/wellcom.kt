@@ -11,21 +11,20 @@ import com.kltn.congphuc.giaohang.model.sharedPreferences
 import com.kltn.congphuc.giaohang.myFirebaseIdService.MyFirebasemessage
 import kotlinx.android.synthetic.main.activity_wellcom.*
 import android.widget.TextView
-
+import android.widget.Toast
+import android.R.attr.keySet
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class wellcom : AppCompatActivity() {
-
+    var idvoice = "wellcom"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_wellcom)
         onNewIntent(getIntent());
-//        var a = "qfewfwef"
-//        val b = intent
-//        if (b.getStringExtra("title") !=null){
-//            a = b.getStringExtra("title")}
-
         supportActionBar!!.hide()
+//        val refreshToken:String? = FirebaseInstanceId.getInstance().token
+//        Log.d("tokenmyap",refreshToken)
         val trans: Animation = AnimationUtils.loadAnimation(this@wellcom,R.anim.aniwellcom)
         val transbirds: Animation = AnimationUtils.loadAnimation(this@wellcom,R.anim.anibirdsfly)
         imageViewflight!!.startAnimation(trans)
@@ -36,24 +35,25 @@ class wellcom : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
-        val extras = intent!!.getExtras()
-        if (extras != null) {
-            Log.d("wellcome", extras.size().toString())
-            for (key:String in extras.keySet()) {
-                Log.d("wellcome",key)
-                if (key.equals("titlenotifi")) {
-                    // extract the extra-data in the Notification
-                    val msg = extras.getString("titlenotifi")
-                    Log.d("wellcome", msg)
-                } else {
-                    Log.d("wellcome", "sao ta")
 
+        if (intent != null && intent.extras != null) {
+            val extras = intent.extras
+            var someData = "wellcome"
+            for (key:String in extras.keySet()) {
+                Log.d("allkey",key)
+                if (key.equals("title")) {
+                    someData = extras!!.getString("title")
+                    idvoice = someData
+                    Log.d("title", someData)
+                    Toast.makeText(this@wellcom, someData, Toast.LENGTH_SHORT).show()
+                } else {
+                    if (key.equals("titlenotifi")) {
+                        someData = extras!!.getString("titlenotifi")
+                        idvoice = someData
+                        Toast.makeText(this@wellcom, someData, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
-        }
-        else
-        {
-            Log.d("wellcome","the déo nào")
         }
     }
     private fun startMainActivity() {
@@ -63,7 +63,7 @@ class wellcom : AppCompatActivity() {
                     Thread.sleep(4000) // set thoi gian dong Activity
                     val laytt = sharedPreferences(this@wellcom)
                     val a = laytt.docThongTin()
-                    if (a[0] == "KLTN-Ugao")
+                    if (a.get(0) == "KLTN-Ugao")
                     {
                         val intent = Intent(this@wellcom, LogIn::class.java)
                         startActivity(intent)
@@ -71,6 +71,7 @@ class wellcom : AppCompatActivity() {
                     }
                     else {
                         val intent = Intent(this@wellcom, MainActivity::class.java)
+                        intent.putExtra("idvoice",idvoice)
                         startActivity(intent)
                         finish()
                     }

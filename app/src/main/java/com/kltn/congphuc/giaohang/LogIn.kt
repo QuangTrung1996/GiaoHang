@@ -1,10 +1,15 @@
 package com.kltn.congphuc.giaohang
 
+import android.content.DialogInterface
 import android.content.Intent
+import android.database.sqlite.SQLiteDatabase
 import android.graphics.Color
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.provider.Settings
+import android.support.v7.app.AlertDialog
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -17,27 +22,32 @@ import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.kltn.congphuc.giaohang.dataRetrofit.User
+import com.kltn.congphuc.giaohang.model.ConectDatabaseSQLite
 import com.kltn.congphuc.giaohang.model.sharedPreferences
-import com.kltn.congphuc.giaohang.myFirebaseIdService.Common
 import com.kltn.congphuc.giaohang.presenter.presenterLogin
 import com.kltn.congphuc.giaohang.view.viewLogin
-import com.travel.phuc.trung.tlcn.tlcn.Conect.CheckInternet
-import com.travel.phuc.trung.tlcn.tlcn.Conect.CheckInternetInterface
+import com.kltn.congphuc.giaohang.checkInternet.CheckInternet
+import com.kltn.congphuc.giaohang.checkInternet.CheckInternetInterface
 import kotlinx.android.synthetic.main.activity_log_in.*
 import kotlin.collections.ArrayList
 
-class LogIn : AppCompatActivity(),viewLogin,CheckInternetInterface{
+class LogIn : AppCompatActivity(),viewLogin, CheckInternetInterface {
 
     var internet=true
     private var flag = true
+    private var pass:String?=""
+    private val DATABASENAME:String="donHang.sqlite"
+    private var database: SQLiteDatabase?=null;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_in)
         supportActionBar!!.hide()
+        database = ConectDatabaseSQLite().initDatabase(this,DATABASENAME);
+
         val scale:Animation = AnimationUtils.loadAnimation(this,R.anim.animation_scale)
         showpass.setOnClickListener({
             passwword.transformationMethod = HideReturnsTransformationMethod.getInstance();
@@ -63,11 +73,13 @@ class LogIn : AppCompatActivity(),viewLogin,CheckInternetInterface{
             username.setAdapter<ArrayAdapter<String>?>(adapter)
         }
         login.setOnClickListener({
-            val checkInternet =CheckInternet(this)
+            val checkInternet = CheckInternet(this)
             checkInternet.checkConnection(this)
 
             if (internet==true){
                 login.startAnimation()
+                pass = passwword.text.toString().trim()
+                Log.d("passs",pass)
                 flag = false
                 signup.startAnimation(scale)
                 signup.animation.fillAfter = true
@@ -84,6 +96,24 @@ class LogIn : AppCompatActivity(),viewLogin,CheckInternetInterface{
 //            val intent = Intent(this@LogIn, MainActivity::class.java)
 //           this@LogIn.startActivity(intent)
         })
+        forgotpass.setOnClickListener {
+            val  builder =  AlertDialog.Builder(this)
+            builder.setMessage("gởi mật khẩu mới đến Email của bạn")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", object : DialogInterface.OnClickListener {
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            sendEmail()
+                        }
+
+                    })
+                    .setNegativeButton("No", object : DialogInterface.OnClickListener {
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            p0!!.cancel();                    }
+
+                    });
+            val  alert: AlertDialog = builder.create();
+            alert.show();
+        }
         signup.setOnClickListener {
             if (flag)
             {
@@ -91,6 +121,21 @@ class LogIn : AppCompatActivity(),viewLogin,CheckInternetInterface{
             }
         }
     }
+
+    // gởi pass đến gmail
+    private fun sendEmail(){
+        val emailIntent = Intent(Intent.ACTION_SENDTO);
+    emailIntent.setData(Uri.parse("mailto:" + "recipient@example.com"));
+    emailIntent.putExtra(Intent.EXTRA_SUBJECT, "My email's subject");
+    emailIntent.putExtra(Intent.EXTRA_TEXT, "My email's body");
+
+    try {
+        startActivity(Intent.createChooser(emailIntent, "Send email using..."))
+    } catch (ex:android.content.ActivityNotFoundException) {
+        Toast.makeText(this, "No email clients installed.", Toast.LENGTH_SHORT).show();
+    }
+    }
+
     override fun kiemtrainternet(flag: Boolean) {
         internet = flag
     }
@@ -98,9 +143,10 @@ class LogIn : AppCompatActivity(),viewLogin,CheckInternetInterface{
         super.thanhCong(userInfor)
         FirebaseMessaging.getInstance().subscribeToTopic("news")
         val luuThongTin = sharedPreferences(this)
-        luuThongTin.nghiThongTin(userInfor.data!!.authenticatedShipper!!.name!!,userInfor.data!!.authenticatedShipper!!.address!!,userInfor!!.data!!.authenticatedShipper!!.phone!!,
-                userInfor!!.data!!.authenticatedShipper!!.token!!,userInfor!!.data!!.authenticatedShipper!!.id!!,
-                userInfor!!.data!!.authenticatedShipper!!.img!!)
+        luuThongTin.nghiThongTin(userInfor.data!!.authenticatedShipper!!.name!!,userInfor.data!!.authenticatedShipper!!.address!!,userInfor!!.data!!.authenticatedShipper!!.phone!!
+                ,userInfor!!.data!!.authenticatedShipper!!.id!!,
+                userInfor!!.data!!.authenticatedShipper!!.img!!,pass!!,
+                userInfor!!.data!!.authenticatedShipper!!.email!!,userInfor!!.data!!.authenticatedShipper!!.licensePlate!!)
         luuThongTin.nghiThongTinlistemail(username.text.toString().trim())
         val intent = Intent(this@LogIn, MainActivity::class.java)
         this@LogIn.startActivity(intent)
@@ -113,27 +159,29 @@ class LogIn : AppCompatActivity(),viewLogin,CheckInternetInterface{
 
      override fun thieudulieu(a:Int) {
         super.thieudulieu(a)
-        // Log.d("aaa",a.toString())
+         // Log.d("aaa",a.toString())
          flag =true
          signup.animation.fillAfter = false
+         login.background = this.getDrawable(R.drawable.background_login)
          login.revertAnimation {
-             login.background = resources.getDrawable(R.drawable.background_login)
              login.setText("Thử lại")
              login.setTextColor(Color.RED)
          }
+
          login.stopAnimation()
 //         login.doneLoadingAnimation(Color.GREEN,BitmapFactory.decodeResource(resources,R.drawable.ic_done_white_48dp))
          login.setText("Thử lại")
          customToat("email hoặc password không được để trống")
      }
      override fun thatBai() {
-        super.thatBai()
+         super.thatBai()
          flag =true
          signup.animation.fillAfter = false
          login.revertAnimation {
-             login.background = resources.getDrawable(R.drawable.background_login)
              login.setText("Thử lại")
              login.setTextColor(Color.RED)
+             login.background = this.getDrawable(R.drawable.background_login)
+
          }
          customToat("email hoặc password không đúng")
          login.stopAnimation()

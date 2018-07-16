@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:background="@color/lightblue"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_margin="3dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+            <ImageView
+                android:layout_marginStart="5dp"
+                android:id="@+id/imageShippers"
+                android:scaleType="fitXY"
+                android:src="@drawable/backgroundwellcome"
+                android:layout_gravity="center_vertical"
+                android:layout_width="100dp"
+                android:layout_height="110dp" />
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginEnd="2dp"
+                android:layout_gravity="end"
+                android:orientation="vertical"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                tools:ignore="RtlHardcoded">
+               <TextView
+                   android:textSize="15sp"
+                   android:textColor="@color/colorPrimaryDark"
+                   android:text="@string/tennguoinhan"
+                   android:id="@+id/nameShippers"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" />
+                <TextView
+                    android:textSize="10sp"
+                    android:textColor="@color/black"
+                    android:text="@string/email"
+                    android:id="@+id/emailShippers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="SmallSp" />
+                <TextView
+                    android:textSize="10sp"
+                    android:textColor="@color/black"
+                    android:text="@string/SDT"
+                    android:id="@+id/phoneShippers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="SmallSp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

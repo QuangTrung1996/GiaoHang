@@ -2,8 +2,9 @@ package com.kltn.congphuc.giaohang.dataRetrofit.invoiceShiper
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class Customer {
+class Customer : Serializable {
 
     @SerializedName("name")
     @Expose
@@ -11,8 +12,8 @@ class Customer {
     @SerializedName("phone")
     @Expose
     var phone: String? = null
-    @SerializedName("_id")
+    @SerializedName("token")
     @Expose
-    var id: String? = null
+    var token: String? = null
 
 }

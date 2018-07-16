@@ -17,14 +17,14 @@ class MyFirebasemessage: FirebaseMessagingService() {
 
     override fun onMessageReceived(p0: RemoteMessage?) {
         super.onMessageReceived(p0)
-        showNotification(p0!!.notification)
+        showNotification(p0!!.notification,p0!!.data!!.get("title")!!)
     }
 
-    private fun showNotification(notification: RemoteMessage.Notification?) {
+    private fun showNotification(notification: RemoteMessage.Notification?,string: String) {
         var intent:Intent = Intent(this,wellcom::class.java)
-       intent.putExtra("titlenotifi",notification!!.body)
+        intent.putExtra("titlenotifi",string)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or  Intent.FLAG_ACTIVITY_SINGLE_TOP)
-        val pendingIntent = PendingIntent.getActivity(this,0,intent,PendingIntent.FLAG_UPDATE_CURRENT)
+        val pendingIntent = PendingIntent.getActivity(this,intent.filterHashCode(),intent,PendingIntent.FLAG_UPDATE_CURRENT)
        val notificationcopact = NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
                 .setContentTitle(notification!!.title)

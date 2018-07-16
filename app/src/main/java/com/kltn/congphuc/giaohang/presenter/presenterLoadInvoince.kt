@@ -6,10 +6,10 @@ import com.kltn.congphuc.giaohang.model.modelLogin
 import com.kltn.congphuc.giaohang.model.responelLoadVoinces
 import com.kltn.congphuc.giaohang.view.viewLoadInvoince
 
-class presenterLoadInvoince(var viewLoadInvoince: viewLoadInvoince):responelLoadVoinces {
+class presenterLoadInvoince(var tenDangNhap:String,var matKhau:String,var viewLoadInvoince: viewLoadInvoince):responelLoadVoinces {
 
     fun loadVoice(){
-        val modelLoadInvoices = modelLoadInvoices(this)
+        val modelLoadInvoices = modelLoadInvoices(tenDangNhap,matKhau,this)
         modelLoadInvoices.loadDataInvoices()
     }
 

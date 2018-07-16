@@ -16,13 +16,13 @@ class AuthenticatedShipper {
     @SerializedName("phone")
     @Expose
      var phone: String? = null
-    @SerializedName("token")
-    @Expose
-     var token: String? = null
     @SerializedName("address")
     @Expose
      var address: String? = null
     @SerializedName("name")
     @Expose
      val name: String? = null
+    @SerializedName("licensePlate")
+    @Expose
+    val licensePlate: String? = null
 }

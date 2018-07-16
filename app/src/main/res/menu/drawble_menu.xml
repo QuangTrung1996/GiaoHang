@@ -7,14 +7,18 @@
             android:id="@+id/trangchu"
             android:title="@string/home"
             android:visible="true" />
-        />
+
+        <item
+            android:id="@+id/thongkegiaohang"
+            android:title="@string/statistical"
+            android:visible="true" />
         <item
             android:id="@+id/thaydoithongtin"
             android:title="@string/changinformation"
             android:visible="true" />
         <item
-            android:id="@+id/thongkegiaohang"
-            android:title="@string/statistical"
+            android:id="@+id/thongTinCuaHang"
+            android:title="@string/thongtincuahang"
             android:visible="true" />
         />
         <item
@@ -22,5 +26,6 @@
             android:title="@string/logout"
             android:visible="true" />
         />
+
     </group>
 </menu>

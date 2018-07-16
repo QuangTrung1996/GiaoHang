@@ -10,14 +10,14 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
+import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
-import com.kltn.congphuc.giaohang.Main.fragmentMain
-import com.kltn.congphuc.giaohang.model.modelPostRequetNo
+import com.kltn.congphuc.giaohang.view.Main.fragmentMain
 import com.kltn.congphuc.giaohang.model.sharedPreferences
-import com.kltn.congphuc.giaohang.myFirebaseIdService.Common
-import com.kltn.congphuc.giaohang.view.changeInforUser
+import com.kltn.congphuc.giaohang.view.Store.fragmentInforStore
+import com.kltn.congphuc.giaohang.view.chnagInforUser.changeInforUser
+import com.kltn.congphuc.giaohang.view.statistics.fragmentStatistics
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -27,16 +27,20 @@ class MainActivity : AppCompatActivity() {
     private lateinit var email  : TextView
     private lateinit var  SDT : TextView
     private lateinit var ADD:CircleImageView
-
+    var idvoice = "wellcom"
+    private var RequestCode = 1000
     private var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     private var navigationView: NavigationView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         FirebaseMessaging.getInstance().subscribeToTopic("myshiper")
+        if (intent.extras!=null) {
+            idvoice = intent.getStringExtra("idvoice")
+            Log.d("phuc", idvoice)
+        }
         actionBarDrawerToggle = ActionBarDrawerToggle(this@MainActivity,drawer,R.string.open,R.string.close)
         drawer!!.addDrawerListener(actionBarDrawerToggle!!)
         actionBarDrawerToggle!!.syncState()
@@ -45,14 +49,26 @@ class MainActivity : AppCompatActivity() {
         initNavigationDrawer()
         val fragmentManager = supportFragmentManager
         val transaction = fragmentManager.beginTransaction()
-        transaction.replace(R.id.content,fragmentMain()).commit()
+        val fragmentMain = fragmentMain()
+        val bundle = Bundle()
+        bundle.putString("idvoice",idvoice)
+        fragmentMain.arguments = bundle
+        transaction.replace(R.id.content,fragmentMain).commit()
         navigationView!!.menu.findItem(R.id.trangchu).isChecked = true
-        Common.cutenToken = FirebaseInstanceId.getInstance().getToken()!!
-        Log.d("MainActivity",Common.cutenToken)
+
+//        Common.cutenToken = FirebaseInstanceId.getInstance().getToken()!!
+//        Log.d("MainActivity",Common.cutenToken)
     }
 
 
-
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode ==RequestCode && resultCode == Activity.RESULT_OK && data !=null)
+//        {
+//        Toast.makeText(this,"main",Toast.LENGTH_SHORT).show()
+//
+//        }
+    }
     override fun onBackPressed() {
         if (drawer!!.isDrawerOpen(GravityCompat.START)) {
             drawer!!.closeDrawer(GravityCompat.START)
@@ -85,12 +101,20 @@ class MainActivity : AppCompatActivity() {
             navigationView!!.menu.findItem(R.id.dangxuat).isChecked = false
             navigationView!!.menu.findItem(R.id.thongkegiaohang).isChecked = false
             navigationView!!.menu.findItem(R.id.trangchu).isChecked = false
+            navigationView!!.menu.findItem(R.id.thongTinCuaHang).isChecked = false
 
             val id = menuItem.itemId
             menuItem.isChecked = true
             when (id) {
                 R.id.trangchu -> {
-
+                    val fragmentManager = supportFragmentManager
+                    val transaction = fragmentManager.beginTransaction()
+                    val fragmentMain = fragmentMain()
+                    val bundle = Bundle()
+                    bundle.putString("idvoice",idvoice)
+                    fragmentMain.arguments = bundle
+                    transaction.replace(R.id.content,fragmentMain).commit()
+                    navigationView!!.menu.findItem(R.id.trangchu).isChecked = true
                     navigationView!!.setCheckedItem(id)
                     drawer!!.closeDrawer(GravityCompat.START)
 
@@ -106,28 +130,25 @@ class MainActivity : AppCompatActivity() {
                 R.id.thaydoithongtin ->{
                     val fragmentManager = supportFragmentManager
                     val transaction = fragmentManager.beginTransaction()
-                    transaction.replace(R.id.content,changeInforUser()).commit()
+                    transaction.replace(R.id.content, changeInforUser()).commit()
                     navigationView!!.setCheckedItem(id)
                     drawer!!.closeDrawer(GravityCompat.START)
                 }
                 R.id.thongkegiaohang ->{
-//                    val sharedPreferences = sharedPreferences(this)
-//                    val inforUser = sharedPreferences.docThongTin()
-//                    val id = inforUser.get(3)
-//                    val idinvoice ="5ac89717fbca612954896528"
-//                    val mdpost = modelPostRequetNo()
-//                    mdpost.postRequetNo()
+                     val fragmentManager = supportFragmentManager
+                    val transaction = fragmentManager.beginTransaction()
+                    transaction.replace(R.id.content,fragmentStatistics()).commit()
+                    navigationView!!.setCheckedItem(id)
+                    drawer!!.closeDrawer(GravityCompat.START)
                 }
-//                R.id.schedule -> {
-//
-////                    flagHome = false
-////
-////                    val fragmentManager = supportFragmentManager
-////                    val transaction = fragmentManager.beginTransaction()
-////
-////                    transaction.replace(R.id.content, ScheduleFragment()).commit()
-////                    drawer!!.closeDrawer(GravityCompat.START)
-//                }
+                R.id.thongTinCuaHang ->{
+                    val fragmentManager = supportFragmentManager
+                    val transaction = fragmentManager.beginTransaction()
+                    transaction.replace(R.id.content,fragmentInforStore()).commit()
+                    navigationView!!.setCheckedItem(id)
+                    drawer!!.closeDrawer(GravityCompat.START)
+                }
+
             }
             true
         }

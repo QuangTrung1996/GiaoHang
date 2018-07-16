@@ -45,7 +45,7 @@ class modelLogin(var responeLogin: responeLogin) {
 ////                    Toast.makeText(getApplicationContext(), t.message, Toast.LENGTH_SHORT).show()
 //                    }
 //                })
-            val query:String = "{authenticatedShipper(email:\"".plus(""+tenDangNhap+"\",".plus("pass:\""+matKhau+"\")"))+ "{ img,_id ,email,phone,token,address,name}}"
+            val query:String = "{authenticatedShipper(email:\"".plus(""+tenDangNhap+"\",".plus("pass:\""+matKhau+"\")"))+ "{ img,_id ,email,phone,address,name,licensePlate}}"
             val call:Call<User> = api.getUserinfor(query)
             call.enqueue(object : Callback<User> {
                 override fun onResponse(call: Call<User>, response: Response<User>) {

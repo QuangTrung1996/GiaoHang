@@ -2,8 +2,9 @@ package com.kltn.congphuc.giaohang.dataRetrofit.invoiceShiper
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
-class UnPaidInvoice {
+class UnPaidInvoice:Serializable {
 
     @SerializedName("paid")
     @Expose

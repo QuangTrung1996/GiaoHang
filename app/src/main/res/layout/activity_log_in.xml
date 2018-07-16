@@ -44,8 +44,7 @@
                 android:inputType="textEmailAddress"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textColorHint="#fff"
-                android:text="Rowan49@gmail.com"/>
+                android:textColorHint="#fff" />
 
             <View
                 android:layout_width="match_parent"
@@ -71,8 +70,7 @@
                     android:inputType="textPassword"
                     android:maxLines="1"
                     android:padding="8dp"
-                    android:textColorHint="#fff"
-                    android:text="kltnugao"/>
+                    android:textColorHint="#fff" />
 
                 <ImageView
                     android:id="@+id/showpass"

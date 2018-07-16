@@ -1,4 +1,4 @@
-package com.travel.phuc.trung.tlcn.tlcn.Conect
+package com.kltn.congphuc.giaohang.checkInternet
 
 
 interface CheckInternetInterface {

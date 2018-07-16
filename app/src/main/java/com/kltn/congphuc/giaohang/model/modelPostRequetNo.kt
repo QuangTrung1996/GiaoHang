@@ -9,10 +9,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class modelPostRequetNo(var respondSendRquetNo: respondSendRquetNo) {
+class modelPostRequetNo(var respondSendRquetNo: respondSendRquetNo,var idvoice:String,var idUsser:String,var time:Double) {
     fun postRequetNo(){
         val api: dataClient = APIUtils.postRequet()
-        val call: Call<PostRequestNo> = api.postRequet("5b10df97cd3ca600140d6e02","5ac9704671d56b2cbc6cbfff",5661651.0)
+        val call: Call<PostRequestNo> = api.postRequet(idvoice,idUsser,time)
         call.enqueue(object : Callback<PostRequestNo> {
             override fun onResponse(call: Call<PostRequestNo>, response: Response<PostRequestNo>) {
                 val invoice: PostRequestNo = response.body()!! as PostRequestNo
