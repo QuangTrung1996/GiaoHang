@@ -13,7 +13,7 @@ import retrofit2.Response
 class modelLoadInvoices(var tenDangNhap:String,var matKhau:String, var responelloadVoinces: responelLoadVoinces) {
     fun loadDataInvoices(){
         val api: dataClient = APIUtils.getdata()
-        val query:String = "{authenticatedShipper(email:\"".plus(""+tenDangNhap+"\",".plus("pass:\""+matKhau+"\")"))+"{_id,unPaidInvoices{ _id order_date price tasks{  location{ address lat lng } } products{ product{ weight price name img } quantity } customer{ name phone token } store{ _id location{ address lat lng } } } } }"
+        val query:String = "{authenticatedShipper(email:\"".plus(""+tenDangNhap+"\",".plus("pass:\""+matKhau+"\")"))+"{_id,unPaidInvoices{ _id order_date price tasks{ estimationTime location{ address lat lng } } products{ product{ weight price name img } quantity } customer{ name phone token } store{ _id location{ address lat lng } } } } }"
         val call: Call<InvoicesShiper> = api.getDataInvoice(query)
         call.enqueue(object : Callback<InvoicesShiper> {
             override fun onResponse(call: Call<InvoicesShiper>, response: Response<InvoicesShiper>) {

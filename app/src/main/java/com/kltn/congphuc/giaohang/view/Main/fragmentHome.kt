@@ -71,24 +71,23 @@ class fragmentHome : Fragment(),viewLoadVoice,viewRespondNo,getLatLogn, CheckInt
     }
 
     override fun senThanhCong() {
-        textviewanimation.visibility = TextView.VISIBLE
-        val trans: Animation = AnimationUtils.loadAnimation(this.context,R.anim.translate_textview)
-        textviewanimation.startAnimation(trans)
-        object : CountDownTimer(2000, 200) {
-            override fun onTick(p0: Long) {
-            }
-
-            override fun onFinish() {
-                textviewanimation.visibility = TextView.INVISIBLE
-                tongKG.setText(tongKG.text.toString().plus(textviewanimation.text.toString()))
-
-            }
-
-        }.start()
+        //textviewanimation.visibility = TextView.VISIBLE
+//        val trans: Animation = AnimationUtils.loadAnimation(this.context,R.anim.translate_textview)
+//        textviewanimation.startAnimation(trans)
+//
+//            object : CountDownTimer(2000, 200) {
+//                override fun onTick(p0: Long) {
+//                }
+//
+//                override fun onFinish() {
+//                    textviewanimation.visibility = TextView.INVISIBLE
+//                    tongKG.setText(tongKG.text.toString().plus(textviewanimation.text.toString()))
+//
+//                }
+//        }.start()
         chuadonhang!!.visibility = TextView.VISIBLE
         donHangHome!!.visibility = LinearLayout.INVISIBLE
-
-
+        customToat("đơn hàng đã được nhận")
 //        val sharedPreferences = sharedPreferences(this.context)
 //        val inforUser = sharedPreferences.docThongTin()
 //        val id = inforUser.get(3)
@@ -98,14 +97,14 @@ class fragmentHome : Fragment(),viewLoadVoice,viewRespondNo,getLatLogn, CheckInt
     override fun senThatBai() {
         customToat("đơn hàng không tồn tại")
     }
-    fun customToat(noidung:String){
+    private fun customToat(noidung:String){
         val layoutInflater:LayoutInflater = getLayoutInflater()
         val view:View = layoutInflater.inflate(R.layout.custom_toast,null)
         val txtToat:TextView = view.findViewById(R.id.TXTtoat)
         txtToat.text = noidung
         val toat:Toast = Toast(this.context)
         toat.view = view
-        toat.duration = Toast.LENGTH_SHORT
+        toat.duration = Toast.LENGTH_LONG
         toat.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 150)
         toat.show()
     }
@@ -183,10 +182,30 @@ class fragmentHome : Fragment(),viewLoadVoice,viewRespondNo,getLatLogn, CheckInt
             a.checkConnection(this.context)
 
         }
+        else
+        {
+            donHangHome!!.visibility = LinearLayout.INVISIBLE
+
+        }
         nhanDonHang!!.setOnClickListener {
-            nhanDonHang!!.background = this.activity.getDrawable(R.drawable.button_onclick)
-            val presenterSendRequetNo = presenterSendRequetNo(this,idvoice,idUsser,time1)
-            presenterSendRequetNo.send()
+
+
+            val  builder =  AlertDialog.Builder(this.context);
+            builder.setMessage("Bạn muốn nhận giao đơn hàng này!. ")
+                    .setCancelable(false)
+                    .setPositiveButton("có", object : DialogInterface.OnClickListener {
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            NhanDonhang()
+                        }
+
+                    })
+                    .setNegativeButton("không", object : DialogInterface.OnClickListener {
+                        override fun onClick(p0: DialogInterface?, p1: Int) {
+                            p0!!.cancel();                    }
+
+                    });
+            val  alert: AlertDialog = builder.create();
+            alert.show();
 
         }
         xemChiTiet!!.setOnClickListener {
@@ -200,6 +219,12 @@ class fragmentHome : Fragment(),viewLoadVoice,viewRespondNo,getLatLogn, CheckInt
         return view
 
 
+    }
+
+    private fun NhanDonhang() {
+        nhanDonHang!!.background = this.activity.getDrawable(R.drawable.button_onclick)
+        val presenterSendRequetNo = presenterSendRequetNo(this,idvoice,idUsser,time1)
+        presenterSendRequetNo.send()
     }
 
     private fun gettime() {

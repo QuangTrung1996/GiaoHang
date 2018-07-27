@@ -8,10 +8,10 @@
             android:title="@string/home"
             android:visible="true" />
 
-        <item
-            android:id="@+id/thongkegiaohang"
-            android:title="@string/statistical"
-            android:visible="true" />
+        <!--<item-->
+            <!--android:id="@+id/thongkegiaohang"-->
+            <!--android:title="@string/statistical"-->
+            <!--android:visible="true" />-->
         <item
             android:id="@+id/thaydoithongtin"
             android:title="@string/changinformation"

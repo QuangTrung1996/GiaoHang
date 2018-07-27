@@ -6,9 +6,9 @@ import java.io.Serializable
 
 class nhiemVu: Serializable {
 
-    @SerializedName("receipt_date")
+    @SerializedName("estimationTime")
     @Expose
-    var receiptDate: String? = null
+    var estimationTime: String? = null
     @SerializedName("location")
     @Expose
     var location: Location? = null

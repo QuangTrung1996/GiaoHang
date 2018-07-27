@@ -35,7 +35,7 @@ class TransporrtFeeAdapter constructor(var context:Context, var listdataFee:Arra
         }
         viewHolder.idDonHang.text = listdataFee.get(position).idDonHang
         viewHolder.soTienNhan.text = listdataFee.get(position).soTienNhan.toString().plus(" Đ")
-        viewHolder.phiVanChuyen.text = listdataFee.get(position).phiaVanChuyen.toString().plus("Đ")
+        viewHolder.phiVanChuyen.text = listdataFee.get(position).phiaVanChuyen.toString()
         return view as View
     }
 

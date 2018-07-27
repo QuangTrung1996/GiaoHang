@@ -29,7 +29,7 @@ class wellcom : AppCompatActivity() {
         val transbirds: Animation = AnimationUtils.loadAnimation(this@wellcom,R.anim.anibirdsfly)
         imageViewflight!!.startAnimation(trans)
         imageViewWellcome.startAnimation(trans)
-        imageViewbirds.startAnimation(transbirds)
+        //imageViewbirds.startAnimation(transbirds)
         startMainActivity()
     }
 
@@ -45,12 +45,12 @@ class wellcom : AppCompatActivity() {
                     someData = extras!!.getString("title")
                     idvoice = someData
                     Log.d("title", someData)
-                    Toast.makeText(this@wellcom, someData, Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this@wellcom, someData, Toast.LENGTH_SHORT).show()
                 } else {
                     if (key.equals("titlenotifi")) {
                         someData = extras!!.getString("titlenotifi")
                         idvoice = someData
-                        Toast.makeText(this@wellcom, someData, Toast.LENGTH_SHORT).show()
+                       // Toast.makeText(this@wellcom, someData, Toast.LENGTH_SHORT).show()
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.kltn.congphuc.giaohang.view.Main
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import com.kltn.congphuc.giaohang.R
 import com.kltn.congphuc.giaohang.view.callBackGoodsRecieved
+import java.text.SimpleDateFormat
 import java.time.temporal.TemporalAccessor
 import kotlin.concurrent.fixedRateTimer
 
@@ -17,6 +19,7 @@ class GoodsReceviedAdapter constructor(var context:Context, var listData:ArrayLi
 
     inner class viewholder(view: View)
     {
+        var thoigiangiao:TextView
         var xemchitiet:TextView
         var delay:Button
         var idDonHang: TextView
@@ -40,7 +43,7 @@ class GoodsReceviedAdapter constructor(var context:Context, var listData:ArrayLi
             soDienThoai=view.findViewById(R.id.sodienthoaireceved)
             tenNguoiNhan = view.findViewById(R.id.tennguoinhanreceved)
             khoiLuong = view.findViewById(R.id.khoiluongreceved)
-
+            thoigiangiao = view.findViewById(R.id.thoigiangiao)
         }
     }
 
@@ -82,10 +85,27 @@ class GoodsReceviedAdapter constructor(var context:Context, var listData:ArrayLi
             val a = callGoodsRecieved
             callGoodsRecieved.callConfirmDelivery(position)
         }
+       val gio= doiTG(listData.get(position).estimationTime)
+        viewHolder.thoigiangiao.text = (gio)
 
         return view as View
     }
 
+    @SuppressLint("SimpleDateFormat")
+    private fun doiTG(estimationTime: String):String {
+
+        val sdf_date_bd : SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm")
+        var ngaybd =sdf_date_bd.format(estimationTime.toLong())
+        return ngaybd
+
+    }
+
+//    private fun doiTG()
+//    {
+////        val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+////        val myDate = simpleDateFormat.parse(rawQuestion.getString("AskDateTime"))
+//
+//    }
     override fun getItem(p0: Int): Any {
         return listData.get(p0)
     }

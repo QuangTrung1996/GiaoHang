@@ -52,6 +52,7 @@
         </RadioGroup>
 
         <FrameLayout
+            android:id="@+id/farmxlcancel"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_width="match_parent"
@@ -76,5 +77,13 @@
                 android:layout_gravity="right"
                 tools:ignore="RtlHardcoded" />
         </FrameLayout>
+        <TextView
+            android:id="@+id/textxlcencel"
+            android:visibility="invisible"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dangXL"/>
     </LinearLayout>
 </LinearLayout>

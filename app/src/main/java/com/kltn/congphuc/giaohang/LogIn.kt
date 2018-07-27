@@ -117,7 +117,7 @@ class LogIn : AppCompatActivity(),viewLogin, CheckInternetInterface {
         signup.setOnClickListener {
             if (flag)
             {
-                Toast.makeText(this,"ano",Toast.LENGTH_SHORT).show()
+                customToat("vui lòng dăng ký tại cửa hàng")
             }
         }
     }

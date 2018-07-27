@@ -24,10 +24,15 @@ import com.kltn.congphuc.giaohang.view.*
 import java.util.*
 import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
+import android.content.DialogInterface
+import android.provider.Settings
+import android.support.v7.app.AlertDialog
+import android.view.Gravity
 import android.widget.TextView
 import com.kltn.congphuc.giaohang.dataRetrofit.dataNotificationFCM.Data
 import com.kltn.congphuc.giaohang.dataRetrofit.dataNotificationFCM.Notification
 import com.kltn.congphuc.giaohang.dataRetrofit.dataNotificationFCM.Pushnotification
+import com.kltn.congphuc.giaohang.dataRetrofit.invoiceShiper.nhiemVu
 import com.kltn.congphuc.giaohang.model.ConectDatabaseSQLite
 import com.kltn.congphuc.giaohang.presenter.presenterConfirmDelivery
 
@@ -41,6 +46,7 @@ class fragmentGoodsReceived: Fragment(),viewLoadInvoince,callBackGoodsRecieved,v
     var tongkhoiluongreceived:TextView?=null
     private var idVoiceDelived:String?=null
     override fun xacNhanThanhCong() {
+        customToat("Đã xác nhận")
         val a1 = sharedPreferences(this.context)
         val infor = a1.docThongTin()
         val userInfor: sharedPreferences = sharedPreferences(this.context)
@@ -66,15 +72,33 @@ class fragmentGoodsReceived: Fragment(),viewLoadInvoince,callBackGoodsRecieved,v
     }
 
     override fun xacNhanThatBai() {
-        Toast.makeText(this.context,"vui lòng xác nhận lại", Toast.LENGTH_LONG).show()
+        customToat("vui lòng xác nhận lại")
     }
 
     override fun callConfirmDelivery(position: Int) {
         idVoiceDelived = invoicesdata.data!!.authenticatedShipper!!.unPaidInvoices!!.get(position).id
-      val a = presenterConfirmDelivery(this,idVoiceDelived!!)
+
+        val  builder =  AlertDialog.Builder(this.context);
+        builder.setMessage("giao đơn hàng: ".plus(idVoiceDelived))
+                .setCancelable(false)
+                .setPositiveButton("có", object : DialogInterface.OnClickListener {
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                        confirm(idVoiceDelived!!)
+                    }
+
+                })
+                .setNegativeButton("không", object : DialogInterface.OnClickListener {
+                    override fun onClick(p0: DialogInterface?, p1: Int) {
+                        p0!!.cancel();                    }
+
+                });
+        val  alert: AlertDialog = builder.create();
+        alert.show();
+    }
+    private fun confirm(id:String){
+        val a = presenterConfirmDelivery(this,id!!)
         a.sendRequest()
     }
-
 
     override fun callDetail(position: Int) {
         val a:UnPaidInvoice = invoicesdata.data!!.authenticatedShipper!!.unPaidInvoices!!.get(position)
@@ -101,6 +125,7 @@ class fragmentGoodsReceived: Fragment(),viewLoadInvoince,callBackGoodsRecieved,v
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode ==RequestCode && resultCode == RESULT_OK && data !=null)
         {
+            customToat("đơn hàng đã được hủy")
             processLoadGoods!!.visibility = ProgressBar.VISIBLE
             lvGoods!!.visibility = ListView.INVISIBLE
             val a = sharedPreferences(this.context)
@@ -157,7 +182,6 @@ class fragmentGoodsReceived: Fragment(),viewLoadInvoince,callBackGoodsRecieved,v
 
     override fun loadthatbai() {
         super.loadthatbai()
-        Toast.makeText(this.activity,"thử lại",Toast.LENGTH_SHORT).show()
     }
 
     override fun loadThanhCong(invoicesShiper: InvoicesShiper) {
@@ -169,17 +193,30 @@ class fragmentGoodsReceived: Fragment(),viewLoadInvoince,callBackGoodsRecieved,v
 
     private fun docdata(invoicesShiper: InvoicesShiper) {
         var tong:Double = 0.0
+        var tongdonhang:Double=0.0
         listDonHang.clear()
         for (i in 0..invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!!.size-1)
         {
-            for (j in 0 .. invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!![i].products!!.size-1){
-            tong = tong+ invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!![i].products!![j]!!.quantity!!}
+            for (j in invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!![i].products!!){
 
-//                listDonHang.add(HomeData("sdafdssfdgtr","Đỗ Công Phuc","117/134/7 phuong 22 nguyên huu cnah",
-//                23,5400000f))
-            //Log.d("testid",invoinces!!.data!!.invoices!!.size.toString())
-            listDonHang.add(DataGoodsRecevied(invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.id!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.name!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).tasks!!.location!!.address!!,
-                    10, invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.price!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.phone!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.token!!))
+//                tongdonhang = (invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!![i]!!.products!![i]!!.quantity!!*
+//                        invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!![i]!!.products!![i]!!.product!!.weight!!).toDouble()
+                tongdonhang+= j.product!!.weight!!*j.quantity!!
+            }
+            tong = tong+ tongdonhang
+//
+            if(invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.token == null){
+                listDonHang.add(DataGoodsRecevied(invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.id!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.name!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).tasks!!.location!!.address!!,
+                        tongdonhang, invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.price!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.phone!!, "giaohang",invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!![i].orderDate!!
+                        , invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!![i].tasks!!.estimationTime!!))
+
+            }
+            else {
+                listDonHang.add(DataGoodsRecevied(invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.id!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.name!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).tasks!!.location!!.address!!,
+                        tongdonhang, invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.price!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.phone!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.token!!,invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!![i].orderDate!!
+                       , invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!![i].tasks!!.estimationTime!!))
+            }
+            tongdonhang = 0.0
 //            listDonHang.add(DataGoodsRecevied(invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.id!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.name!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).tasks!!.location!!.address!!,
 //                    10, invoicesShiper!!.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i)!!.price!!, invoicesShiper.data!!.authenticatedShipper!!.unPaidInvoices!!.get(i).customer!!.phone!!, "shnushgucshc"))
 
@@ -190,6 +227,17 @@ class fragmentGoodsReceived: Fragment(),viewLoadInvoince,callBackGoodsRecieved,v
         lvGoods!!.adapter = adapter
         processLoadGoods!!.visibility = ProgressBar.INVISIBLE
         lvGoods!!.visibility = ListView.VISIBLE
+    }
+    private fun customToat(noidung:String){
+        val layoutInflater:LayoutInflater = getLayoutInflater()
+        val view:View = layoutInflater.inflate(R.layout.custom_toast,null)
+        val txtToat:TextView = view.findViewById(R.id.TXTtoat)
+        txtToat.text = noidung
+        val toat:Toast = Toast(this.context)
+        toat.view = view
+        toat.duration = Toast.LENGTH_LONG
+        toat.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 150)
+        toat.show()
     }
 
     companion object {

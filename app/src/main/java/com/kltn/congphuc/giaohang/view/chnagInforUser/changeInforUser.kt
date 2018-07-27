@@ -36,9 +36,9 @@ import java.io.FileNotFoundException
 class changeInforUser:Fragment(),viewUpdateUser {
     override fun updateThanhCong() {
         confirm!!.revertAnimation{
-            confirm!!.background = this.activity.getDrawable(R.drawable.background_login)
+            confirm!!.background = this.activity.getDrawable(R.drawable.background_signup)
             confirm!!.setTextColor(Color.BLACK)
-            confirm!!.setText("Thành công")
+            confirm!!.setText("cập nhật thành công")
         }
         val luuThongTin = sharedPreferences(this.activity)
 
@@ -46,7 +46,7 @@ class changeInforUser:Fragment(),viewUpdateUser {
                     thongtin[2],
                     thongtin[6],
                     email!!.text.toString(), plate!!.text.toString())
-            confirm!!.background = this.activity.getDrawable(R.drawable.background_login)
+            confirm!!.background = this.activity.getDrawable(R.drawable.background_signup)
             confirm!!.setText("Thành công")
 
     }
@@ -142,6 +142,7 @@ class changeInforUser:Fragment(),viewUpdateUser {
                 .centerCrop()
                 .error(R.drawable.anhao)
                 .into(imageUsser)
+        confirm!!.background = this.activity.getDrawable(R.drawable.background_signup)
     }
 
 

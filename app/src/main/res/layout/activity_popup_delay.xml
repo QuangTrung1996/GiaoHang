@@ -106,5 +106,13 @@
             android:layout_height="30dp"
             android:text="@string/goi"
             tools:ignore="RtlHardcoded" />
+        <TextView
+            android:id="@+id/xuly"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/red"
+            android:text="@string/dangXL"/>
     </FrameLayout>
 </LinearLayout>

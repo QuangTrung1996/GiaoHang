@@ -59,7 +59,7 @@ class DetaiVoiceUnpaid : AppCompatActivity() {
         return true
     }
 
-    fun setListViewHeightBasedOnChildren(listView: ListView) {
+    private fun setListViewHeightBasedOnChildren(listView: ListView) {
         val listAdapter = listView.adapter ?: return
 
         val desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.width, View.MeasureSpec.UNSPECIFIED)

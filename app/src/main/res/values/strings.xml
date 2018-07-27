@@ -25,7 +25,7 @@
     <string name="chuacohang">Hiện tại chưa có đơn hàng</string>
     <string name="xenbando">xem vị trí, đường đi</string>
     <string name="xemchitiet">chi tiết…</string>
-    <string name="nhandonhang">nhận đơn hàng</string>
+    <string name="nhandonhang">nhận giao hàng</string>
     <string name="diachigiaohang">địa chỉ giao hàng </string>
     <string name="_17_000">17.000 đ</string>
     <string name="diachinhanhang">địa chỉ lấy gạo: </string>
@@ -57,5 +57,6 @@
     <string name="nguoigiaohangcung">Danh sách những người cùng giao hàng</string>
     <string name="thongtincuahang">Thông tin cửa hàng</string>
     <string name="thongke">Đang Thồng kê dữ liệu…</string>
+    <string name="dangXL">đang sử lý…</string>
 
 </resources>

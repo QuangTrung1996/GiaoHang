@@ -17,7 +17,7 @@ class UnPaidInvoice:Serializable {
     var orderDate: String? = null
     @SerializedName("price")
     @Expose
-    var price: Int? = null
+    var price: Double? = null
     @SerializedName("tasks")
     @Expose
     var tasks: nhiemVu? = null

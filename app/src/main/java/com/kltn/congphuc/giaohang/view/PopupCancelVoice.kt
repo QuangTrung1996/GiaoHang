@@ -5,12 +5,9 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.widget.*
 import com.kltn.congphuc.giaohang.R
 import kotlinx.android.synthetic.main.activity_popup_cancel_voice.*
-import android.widget.RadioGroup
-import android.widget.Toast
-import android.widget.CompoundButton
-import android.widget.RadioButton
 import com.kltn.congphuc.giaohang.dataRetrofit.datainvoiceSerializable
 import com.kltn.congphuc.giaohang.dataRetrofit.invoiceShiper.UnPaidInvoice
 import com.kltn.congphuc.giaohang.model.sharedPreferences
@@ -60,6 +57,8 @@ class PopupCancelVoice (): AppCompatActivity(),viewCancelInvoice {
             }
             else
             {
+                textxlcencel.visibility = TextView.VISIBLE
+                farmxlcancel.visibility = FrameLayout.INVISIBLE
                 val pst = presenterSeenRequetCancelInvoice(this,invoice!!.id!!,invoice!!.store!!.id!!,idshipper!!,lyDo!!)
                 pst.postCancelInvoice()
                 //Toast.makeText(this,lyDo,Toast.LENGTH_SHORT).show()
@@ -69,8 +68,8 @@ class PopupCancelVoice (): AppCompatActivity(),viewCancelInvoice {
             this.finish()
         }
 
-
     }
+
 
     private fun doOnDifficultyLevelChanged(group: RadioGroup?, checkedId: Int) {
             val id = group!!.checkedRadioButtonId

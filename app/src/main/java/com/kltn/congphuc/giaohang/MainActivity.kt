@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         navigationView!!.setNavigationItemSelectedListener { menuItem ->
             navigationView!!.menu.findItem(R.id.thaydoithongtin).isChecked = false
             navigationView!!.menu.findItem(R.id.dangxuat).isChecked = false
-            navigationView!!.menu.findItem(R.id.thongkegiaohang).isChecked = false
+           // navigationView!!.menu.findItem(R.id.thongkegiaohang).isChecked = false
             navigationView!!.menu.findItem(R.id.trangchu).isChecked = false
             navigationView!!.menu.findItem(R.id.thongTinCuaHang).isChecked = false
 
@@ -134,13 +134,13 @@ class MainActivity : AppCompatActivity() {
                     navigationView!!.setCheckedItem(id)
                     drawer!!.closeDrawer(GravityCompat.START)
                 }
-                R.id.thongkegiaohang ->{
-                     val fragmentManager = supportFragmentManager
-                    val transaction = fragmentManager.beginTransaction()
-                    transaction.replace(R.id.content,fragmentStatistics()).commit()
-                    navigationView!!.setCheckedItem(id)
-                    drawer!!.closeDrawer(GravityCompat.START)
-                }
+//                R.id.thongkegiaohang ->{
+//                     val fragmentManager = supportFragmentManager
+//                    val transaction = fragmentManager.beginTransaction()
+//                    transaction.replace(R.id.content,fragmentStatistics()).commit()
+//                    navigationView!!.setCheckedItem(id)
+//                    drawer!!.closeDrawer(GravityCompat.START)
+//                }
                 R.id.thongTinCuaHang ->{
                     val fragmentManager = supportFragmentManager
                     val transaction = fragmentManager.beginTransaction()

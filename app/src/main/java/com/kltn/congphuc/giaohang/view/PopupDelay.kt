@@ -3,7 +3,12 @@ package com.kltn.congphuc.giaohang.view
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
 import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.kltn.congphuc.giaohang.R
 import com.kltn.congphuc.giaohang.dataRetrofit.dataNotificationFCM.Data
@@ -18,7 +23,7 @@ class PopupDelay : AppCompatActivity(),viewDelay {
     private var thoigian:String?=null
     private var lydo:String?=null
     override fun senThanhCong() {
-        Toast.makeText(this,"thông tin đã được gởi đến khách hàng",Toast.LENGTH_LONG).show()
+        customToat("thông tin đã được gởi")
         this@PopupDelay.finish()
     }
 
@@ -43,24 +48,46 @@ class PopupDelay : AppCompatActivity(),viewDelay {
             lydo(group, checkedId) })
         huyDelay.setOnClickListener { this.finish() }
         goiThongBao.setOnClickListener {
-            if (lydo != null && thoigian !=null) {
-                val data = Data("giao hàng gạo", "giao hàng chậm".plus(thoigian) + lydo)
-                val notification = Notification("giao hàng gạo", "giao hàng chậm".plus(thoigian) + lydo)
-                val pushnotification = Pushnotification(token!!, notification, data)
-                val pstSendFCM = PresenterSendFCMDelay(pushnotification, this)
-                pstSendFCM.sendNotifiFCM()
+            if (token != "giaohang") {
+                if (lydo != null && thoigian != null) {
+                    xuly.visibility = TextView.VISIBLE
+                    goiThongBao.visibility = Button.INVISIBLE
+                    huyDelay.visibility = Button.INVISIBLE
+                    val data = Data("giao hàng gạo", "giao hàng chậm".plus(thoigian) + lydo)
+                    val notification = Notification("giao hàng gạo", "giao hàng chậm".plus(thoigian) + lydo)
+                    val pushnotification = Pushnotification(token!!, notification, data)
+                    val pstSendFCM = PresenterSendFCMDelay(pushnotification, this)
+                    pstSendFCM.sendNotifiFCM()
+                } else {
+                    xuly.visibility = TextView.VISIBLE
+                    goiThongBao.visibility = Button.INVISIBLE
+                    huyDelay.visibility = Button.INVISIBLE
+                    val data = Data("giao hàng gạo", "giao hàng chậm")
+                    val notification = Notification("giao hàng gạo", "giao hàng chậm")
+                    val pushnotification = Pushnotification(token!!, notification, data)
+                    val pstSendFCM = PresenterSendFCMDelay(pushnotification, this)
+                    pstSendFCM.sendNotifiFCM()
+                }
             }
-            else{
-                val data = Data("giao hàng gạo", "giao hàng chậm")
-                val notification = Notification("giao hàng gạo", "giao hàng chậm")
-                val pushnotification = Pushnotification(token!!, notification, data)
-                val pstSendFCM = PresenterSendFCMDelay(pushnotification, this)
-                pstSendFCM.sendNotifiFCM()
+            else
+            {
+               customToat( "hiện tại không thể gởi thông tin")
             }
         }
 
 
 
+    }
+    private fun customToat(noidung:String){
+        val layoutInflater: LayoutInflater = getLayoutInflater()
+        val view: View = layoutInflater.inflate(R.layout.custom_toast,null)
+        val txtToat: TextView = view.findViewById(R.id.TXTtoat)
+        txtToat.text = noidung
+        val toat:Toast = Toast(this)
+        toat.view = view
+        toat.duration = Toast.LENGTH_LONG
+        toat.setGravity(Gravity.BOTTOM or Gravity.CENTER_HORIZONTAL, 0, 150)
+        toat.show()
     }
 
     private fun lydo(group: RadioGroup?, checkedId: Int) {

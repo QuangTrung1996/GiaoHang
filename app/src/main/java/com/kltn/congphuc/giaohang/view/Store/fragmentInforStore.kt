@@ -44,22 +44,23 @@ class fragmentInforStore: Fragment(),viewLoadStore {
 //                Toast.makeText(this.context,thongTin.data!!.authenticatedShipper!!.store!!.shippers!!.get(i).img!!,Toast.LENGTH_SHORT).show()
                 }
             }
+            if (thongTin!!.data!!.authenticatedShipper!!.store!!.owner!!.img !=null) {
+                Glide.with(this.context).load(thongTin!!.data!!.authenticatedShipper!!.store!!.owner!!.img)
+                        .placeholder(R.drawable.shipgao)
+                        .error(R.drawable.shipgao)
+                        .centerCrop()
+                        .into(anhOwner)
+            }
+            adapter.notifyDataSetChanged()
+            listShipper!!.adapter = adapter
+            setListViewHeightBasedOnChildren(listShipper!!)
+            scrollView!!.visibility = ScrollView.VISIBLE
+            process!!.visibility = ProgressBar.INVISIBLE
         }
         else
         {
-            Toast.makeText(this.context,"cmsi",Toast.LENGTH_SHORT).show()
         }
-        adapter.notifyDataSetChanged()
-        listShipper!!.adapter = adapter
-        setListViewHeightBasedOnChildren(listShipper!!)
-        Glide.with(this.context).load(thongTin!!.data!!.authenticatedShipper!!.store!!.owner!!.img)
-                .placeholder(R.drawable.shipgao)
-                .error(R.drawable.shipgao)
-                .centerCrop()
-                .into(anhOwner)
 
-        scrollView!!.visibility = ScrollView.VISIBLE
-        process!!.visibility = ProgressBar.INVISIBLE
     }
 
 

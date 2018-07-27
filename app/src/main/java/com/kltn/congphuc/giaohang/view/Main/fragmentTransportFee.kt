@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import com.kltn.congphuc.giaohang.R
 import com.kltn.congphuc.giaohang.checkInternet.CheckInternet
@@ -40,8 +41,22 @@ class fragmentTransportFee: Fragment(),viewLoadVoice,CheckInternetInterface {
     }
 
     override fun loadThanhCong(invoiceID: InvoiceID) {
-        listDonHang.add(DataTransportFee(invoiceID!!.data!!.invoice!!.id!!, invoiceID!!.data!!.invoice!!.price!!.toFloat()!!, invoiceID!!.data!!.invoice!!.orderDate!!))
+        listDonHang.add(DataTransportFee(invoiceID!!.data!!.invoice!!.id!!, invoiceID!!.data!!.invoice!!.price!!.toFloat()!!,invoiceID!!.data!!.invoice!!.customer!!.name!! ))
         adapter.notifyDataSetChanged()
+        //tongtien = invoiceID!!.data!!.invoice!!.price!!
+//        if (tongtienthu!!.text.toString().equals("")&&tongtienthu!!.text.toString() !=null)
+//        {
+//            val tien = tongtienthu!!.text.toString()
+//            val a = tien.toDouble()
+//            tongtien += a
+//            tongtienthu!!.text = tongtien.toString()
+//
+//        }
+//        else
+//        {
+//            tongtienthu!!.text = tongtien.toString()
+//        }
+
         lvTransportFree!!.adapter = adapter
         procesloadvoiceID!!.visibility = ProgressBar.INVISIBLE
         lvTransportFree!!.visibility = ListView.VISIBLE
@@ -57,6 +72,8 @@ class fragmentTransportFee: Fragment(),viewLoadVoice,CheckInternetInterface {
     private val DATABASENAME:String="donHang.sqlite"
     private var database: SQLiteDatabase?=null;
     private var procesloadvoiceID:ProgressBar?=null
+//    private var tongtienthu:TextView?=null
+//    private var tongtien:Double = 0.0
 
     @Nullable
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -64,6 +81,7 @@ class fragmentTransportFee: Fragment(),viewLoadVoice,CheckInternetInterface {
         lvTransportFree=view.findViewById(R.id.Lv_transport)as ListView
         procesloadvoiceID = view.findViewById(R.id.procesloadvoiceID)
         database = ConectDatabaseSQLite().initDatabase(this.activity,DATABASENAME);
+        //tongtienthu = view.findViewById(R.id.tongtienthu)
         layTT()
 
 
